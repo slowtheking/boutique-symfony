@@ -1,0 +1,80 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{# =============== LISTE PRODUIT ========= #}
+
+{% block content %}
+	<div class="mb-5 justify-content-center ">
+		<h2>Bienvenue à la boutique du Moche</h2>
+		<h3>Liste des produits</h3>
+	</div>
+	<div class="row">
+
+{# ============== CATEGORIES =============== #}
+
+		<div class="col-md-3 justify-content-center">
+			<ul class="list-group">
+				<h6>Selection par catégorie</h6><hr>
+				{# Boucle pour afficher les categorie par leur $id #}
+				{% for categorie in categories %}
+					<a class="text-decoration-none" href="{{ path('produits_categorie', {id: categorie.id}) }}">
+						<li class="list-group-item text-center">
+							{{ categorie.nom }}
+						</li>
+					</a>
+				{% endfor %}
+			</ul>
+			<br>
+			<a class="col-md-12 btn btn-dark btn-sm" 
+			href="{{ path('produits_all') }}">Tout voir</a>
+
+		</div>
+{# ============== PROD =============== #}
+
+		<div class="col-md-9 justify-content-center">
+			{% for produit in produits %}
+				<div class="row justify-content-center">
+					<div class="col card mb-3 " style="max-width: 500px;">
+						<div class="row g-0">
+							<div class="col-md-6 justify-content-center">
+								<img src="{{ asset('photoProduits/' ~ produit.photo) }}" 
+								class="img-fluid rounded-start" style="max-width: 150px;" alt="{{ produit.titre }}">
+							</div>
+							<div class="col-md-6">
+								<div class="card-body">
+									<h6 class="card-title">
+										<a class="btn btn-primary btn-sm" href="{{ path('produit_show', {id: produit.id} ) }}">
+											{{produit.titre}}</a>
+									</h6>
+
+									{# condition si pas de categorie #}
+									<h6>Catégorie :
+										{% if produit.categorie %}
+											{{ produit.categorie.nom }}</h6>
+									{% else %}
+										Inconnue
+									{% endif %}
+								</h6>
+
+								<h7 class="text-muted">Ajouté le :
+									{{ produit.dateEnregistrement | date('d/m/Y') }}</h7>
+								<h6>Couleur :
+									{{ produit.couleur }}</h6>
+								<h6>Taille :
+									{{ produit.taille }}</h6>
+								<h6>Il en reste :
+									{{ produit.stock }}</h6>
+								<h6>Prix :
+									<strong>{{ produit.prix }}€</strong>
+								</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+
+</div>{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	Gestion Produits
+{% endblock %}
+
+{% block content %}
+
+	<table class="table table-striped">
+		<thead class="thead-dark"></thead>
+		<tr>
+			<th scope="col">id</th>
+			<th scope="col">Titre</th>
+			<th scope="col">description</th>
+			<th scope="col">Couleur</th>
+			<th scope="col">taille</th>
+			<th scope="col">Photo</th>
+			<th scope="col">Prix</th>
+			<th scope="col">Stock</th>
+			<th scope="col">Date d'enregistrement</th>
+			<th scope="col">Catégorie</th>
+			<th scope="col">Action</th>
+
+
+		</tr>
+	</thead>
+	<tbody>
+	
+				<a class="btn btn-sm btn-info col-6 mx-auto" 
+				href={{ path("admin_ajout_produit") }}>Ajouter un Produit</a>
+			<br><br>
+
+		{% for produit in produits %}
+			<tr>
+				<td>{{ produit.id}}</td>
+				<td>{{ produit.titre}}</td>
+				<td>{{ produit.description | slice(0,50)}}</td>
+				<td>{{ produit.couleur}}</td>
+				<td>{{ produit.taille}}</td>
+				<td><img class="img-thumbnail" src="{{ asset('photoProduits/' ~ produit.Photo)}}"></td>
+				<td>{{ produit.prix}}</td>
+				<td>{{ produit.stock}}</td>
+				<td>{{ produit.dateEnregistrement | date("d/m/Y \à H\\hi") }}</td>
+				{# condition si pas de categorie #}
+				<td>
+					{% if produit.categorie %}
+                    {{ produit.categorie.nom }}
+                    {% else %}
+                        Inconnue !
+                    {% endif %}
+				</td>
+
+				<td>
+					<a class="d-grid btn btn-sm btn-info " 
+					href="{{ path('admin_details_produit', {id: produit.id} ) }}">Voir</a>
+					<a class="d-grid btn btn-success btn-sm" 
+					href="{{ path('admin_update_produit', {id: produit.id}) }}">Modifier</a>
+				<br>
+					<a class="d-grid btn btn-danger btn-sm "
+					href="{{ path('admin_delete_produit', {id: produit.id}) }}" 
+					onclick="return confirm('êtes vous sûr de vouloir supprimer le produit ?')">Effacer</a>
+				</td>
+
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+{% endblock %}

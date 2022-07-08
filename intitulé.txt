@@ -1,0 +1,22 @@
+projet semaine 3:
+
+le projet de la semain sera un type e-commerce.
+
+nous aurons besoins d'une table produit, user, commande.
+
+vous mission 1 est de créez le projet, la bdd "boutique", l'entité produit avec :
+titre, description, couleur, taille, photo, prix, stock, dateEnregistrement
+ensuite, vous créez les methodes d'ajout, modification et supprission d'un produit
+
+
+
+/////// Pour MISE en LIGNE ///////
+
+changer le nom de la BdD dans .ENV | ex: boutique_fringue à la place de boutique_symfony
+Ligne 27 | DATABASE_URL="mysql://root:root@127.0.0.1:8889/boutique_fringue?charset=utf8mb4"
+symfony console d:d:c
+symfony console make:migration
+symfony console d:m:m
+- Revenir au nom de la BdD dans .ENV | ex: boutique_symfony
+git init
+git add .

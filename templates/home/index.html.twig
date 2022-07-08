@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	Boutique
+{% endblock %}
+
+{# =============== DERNIERS PRODUITS HOME ========= #}
+
+
+{% block content %}
+	<div class="text-center mb-5">
+		<h1>Bienvenue à la boutique du Moche</h1>
+		<h2>Voici nos derniers produits :</h2>
+	</div>
+	
+	<div class="justify-content-center">
+		{% for produit in produits %}
+			<div class="row justify-content-center">
+				<div class="col card mb-3 " style="max-width: 500px;">
+					<div class="row g-0">
+						<div class="col-md-6 justify-content-center">
+							<img src="{{ asset('photoProduits/' ~ produit.photo) }}" 
+							class="img-fluid rounded-start" style="max-width: 150px;" alt="{{ produit.titre }}">
+						</div>
+
+						<div class="col-md-6">
+							<div class="card-body">
+								<h6 class="card-title">
+									<a class="btn btn-sm btn-secondary " 
+									href="{{ path('produit_show', {id: produit.id} ) }}">
+									{{produit.titre}}</a>
+								</h6>
+								<h7 class="text-muted">Ajouté le :
+									{{ produit.dateEnregistrement | date('d/m/Y') }}</h7>
+								<h6>Couleur :
+									{{ produit.couleur }}</h6>
+								<h6>Taille :
+									{{ produit.taille }}</h6>
+								<h6>Il en reste :
+									{{ produit.stock }}</h6>
+								<h6>Prix :
+									<strong>{{ produit.prix }}€</strong>
+								</h6>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+
